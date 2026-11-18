@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gusii Fest Crossover & New Year · Tickets</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Real barcode library -->
-  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -97,7 +95,7 @@
 
     .ampersand { font-size: 3rem; font-weight: 900; color: #d4af37; text-shadow: 0 0 10px #b8952c; font-family: 'Georgia', serif; line-height: 1; margin: 0 4px; }
 
-    /* ---------- location + QR ---------- */
+    /* ---------- location + small QR ---------- */
     .location-qr {
       display: flex; justify-content: space-between; align-items: center;
       background: #1b2a1b; border-radius: 18px; padding: 12px 16px;
@@ -109,70 +107,34 @@
     .location .phone { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; color: #b6d7a8; }
     .location .phone i { color: #25d366; font-size: 1.1rem; }
     .location .phone span { color: #fff; font-weight: 600; letter-spacing: 0.5px; }
-    .qr-area { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 0.6rem; color: #b6d7a8; text-transform: uppercase; }
-    .qr-box { background: #fff; padding: 6px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-    .qr-box svg { width: 70px; height: 70px; }
+    .qr-area { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 0.55rem; color: #b6d7a8; text-transform: uppercase; letter-spacing: 0.5px; }
+    .qr-box { background: #fff; padding: 5px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+    .qr-box svg { width: 58px; height: 58px; display: block; }
 
     /* ---------- ticket rows ---------- */
-    .ticket-list { display: flex; flex-direction: column; gap: 14px; margin: 20px 0 12px; }
+    .ticket-list { display: flex; flex-direction: column; gap: 12px; margin: 20px 0 12px; }
 
     .ticket-row {
       display: flex; align-items: center; justify-content: space-between;
-      background: #1b2a1b; border-radius: 16px; padding: 14px 16px;
-      border: 1px solid #3e5a3e; transition: 0.1s; flex-wrap: wrap; gap: 12px;
+      background: #1b2a1b; border-radius: 60px; padding: 10px 16px 10px 20px;
+      border: 1px solid #3e5a3e; transition: 0.1s; flex-wrap: wrap; gap: 10px;
     }
     .ticket-row.selected {
       border-color: #f1c40f;
       box-shadow: 0 0 0 2px rgba(241, 196, 15, 0.35);
     }
 
-    .ticket-main {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex: 1;
-      min-width: 240px;
-      flex-wrap: wrap;
-    }
-
-    /* real barcode box */
-    .barcode-box {
-      background: #fff;
-      padding: 6px 8px;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-      min-width: 120px;
-    }
-    .barcode-box svg {
-      display: block;
-      height: 46px;
-      width: 100%;
-    }
-    .barcode-box .barcode-label {
-      font-size: 0.55rem;
-      color: #333;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-top: 2px;
-      font-family: 'Courier New', monospace;
-    }
-    .barcode-box.soldout svg { opacity: 0.25; }
-    .barcode-box.soldout .barcode-label { color: #999; }
-
-    .ticket-info { display: flex; flex-direction: column; flex: 1; min-width: 160px; }
-    .ticket-title { font-weight: 700; font-size: 0.92rem; color: #f0f7e6; line-height: 1.3; }
-    .ticket-sub { font-size: 0.7rem; color: #b0c9a0; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; align-items: center; }
-    .ticket-sub .sold-out { background: #9e2b2b; color: #ffe0e0; padding: 1px 8px; border-radius: 20px; font-weight: 700; font-size: 0.6rem; letter-spacing: 0.3px; text-transform: uppercase; }
+    .ticket-info { display: flex; flex-direction: column; flex: 1; min-width: 180px; }
+    .ticket-title { font-weight: 700; font-size: 0.95rem; color: #f0f7e6; line-height: 1.3; }
+    .ticket-sub { font-size: 0.7rem; color: #b0c9a0; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; align-items: center; }
+    .ticket-sub .sold-out { background: #9e2b2b; color: #ffe0e0; padding: 0 8px; border-radius: 20px; font-weight: 700; font-size: 0.6rem; letter-spacing: 0.3px; text-transform: uppercase; }
     .ticket-sub .expired { color: #d4af37; font-style: italic; font-weight: 500; }
     .ticket-sub .price-tag { color: #f1c40f; font-weight: 800; font-size: 0.85rem; }
 
     .qty-control { display: flex; align-items: center; gap: 8px; background: #2b3b2b; padding: 4px 8px; border-radius: 40px; }
 
     .qty-btn {
-      background: #5f5f5f; border: none; width: 30px; height: 30px; border-radius: 50%;
+      background: #5f5f5f; border: none; width: 28px; height: 28px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       color: white; font-weight: 900; font-size: 1.1rem; cursor: pointer;
       transition: 0.1s; user-select: none;
@@ -181,7 +143,7 @@
     .qty-btn.plus-red { background: #c0392b; }
     .qty-btn:disabled { opacity: 0.35; cursor: not-allowed; }
     .qty-btn:disabled:active { transform: none; }
-    .qty-number { font-weight: 700; color: #fff; min-width: 20px; text-align: center; font-size: 0.95rem; }
+    .qty-number { font-weight: 700; color: #fff; min-width: 18px; text-align: center; font-size: 0.95rem; }
 
     /* ---------- book button ---------- */
     .book-section { margin-top: 24px; }
@@ -310,15 +272,6 @@
     .success-screen h2 { color: #f5f1d6; font-size: 1.5rem; margin-bottom: 8px; }
     .success-screen p { color: #b0c9a0; font-size: 0.9rem; margin-bottom: 24px; }
 
-    .success-ticket {
-      background: #fff; color: #111;
-      border-radius: 14px; padding: 14px; margin-bottom: 12px;
-      text-align: center;
-    }
-    .success-ticket .st-title { font-weight: 800; font-size: 0.85rem; color: #1e2a1e; margin-bottom: 4px; }
-    .success-ticket .st-code { font-size: 0.65rem; font-family: 'Courier New', monospace; color: #666; margin-bottom: 6px; }
-    .success-ticket svg { height: 50px; width: 100%; }
-
     /* responsive */
     @media (max-width: 500px) {
       .ticket-app { padding: 18px; }
@@ -329,7 +282,6 @@
       .location-qr { flex-direction: column; align-items: flex-start; gap: 12px; }
       .nav-links { font-size: 0.55rem; gap: 6px 10px; }
       .form-row { flex-direction: column; gap: 0; }
-      .ticket-main { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -377,6 +329,7 @@
         </div>
       </div>
 
+      <!-- Location + small QR (only QR on the page) -->
       <div class="location-qr">
         <div class="location">
           <div class="pin"><i class="fas fa-map-marker-alt"></i> KISII TOWN</div>
@@ -405,7 +358,7 @@
         </div>
       </div>
 
-      <!-- TICKET LIST — rendered by JS with real barcodes -->
+      <!-- TICKET LIST — matches PDF exactly -->
       <div class="ticket-list" id="ticketList"></div>
 
       <div class="book-section">
@@ -501,8 +454,8 @@
       <div class="success-screen">
         <div class="check-circle"><i class="fas fa-check"></i></div>
         <h2>Payment Successful!</h2>
-        <p>Your tickets have been confirmed. Here are your barcodes — show them at the gate.</p>
-        <div id="successTickets"></div>
+        <p>Your tickets have been confirmed and sent to your email.</p>
+        <div class="summary-card" id="successSummary" style="text-align:left;"></div>
         <button class="book-btn" onclick="resetFlow()">BOOK MORE TICKETS</button>
       </div>
     </div>
@@ -511,16 +464,73 @@
 
   <script>
     // ============================================================
-    // TICKET DATA
+    // TICKET DATA — mirrors the PDF exactly
     // ============================================================
     const TICKET_TYPES = [
-      { id: 'early-bird-2026', title: '31st December 2026 · Early Bird', price: 500, soldOut: true, subLabel: 'SOLD OUT', extra: 'Available 27 Aug – 30 Nov 2026', code: 'GUSII-EB-2026' },
-      { id: 'vip-2026', title: '31st December 2026 · VIP', price: 5000, soldOut: true, subLabel: 'SOLD OUT', extra: 'Ticket period expired', code: 'GUSII-VIP-2026' },
-      { id: 'vip-2027', title: '1st January 2027 · VIP', price: 5000, soldOut: true, subLabel: 'SOLD OUT', extra: '', code: 'GUSII-VIP-2027' },
-      { id: 'vvip-2025', title: '31st December 2025 · VVIP', price: 12000, soldOut: false, subLabel: '', extra: '', code: 'GUSII-VVIP-2025' },
-      { id: 'vvip-2027', title: '1st January 2027 · VVIP', price: 12000, soldOut: false, subLabel: '', extra: '', code: 'GUSII-VVIP-2027' },
-      { id: 'table-2026', title: 'VVIP TABLE OF 4 · 31st December 2026', price: 45000, soldOut: false, subLabel: '', extra: '', code: 'GUSII-TBL-2026' },
-      { id: 'table-2027', title: 'VVIP TABLE OF 4 · 1st January 2027', price: 45000, soldOut: false, subLabel: '', extra: '', code: 'GUSII-TBL-2027' }
+      {
+        id: 'early-bird-2026',
+        title: '31st December 2026 · Early Bird',
+        price: 500,
+        soldOut: true,
+        subLabel: 'SOLD OUT',
+        extra: 'Available from 27 Aug 2026 until 30 Nov 2026'
+      },
+      {
+        id: 'early-bird-2027',
+        title: '1st January 2027 · Early Bird',
+        price: 600,
+        soldOut: true,
+        subLabel: 'SOLD OUT',
+        extra: 'Available from 05 Aug 2026 until 30 Nov 2026'
+      },
+      {
+        id: 'vip-2026',
+        title: '31st December 2026 · VIP',
+        price: 5000,
+        soldOut: true,
+        subLabel: 'SOLD OUT',
+        extra: 'Ticket Period Expired · Available 01 Oct 2026 until 01 Nov 2026'
+      },
+      {
+        id: 'vip-2027',
+        title: '1st January 2027 · VIP',
+        price: 5000,
+        soldOut: true,
+        subLabel: 'SOLD OUT',
+        extra: ''
+      },
+      {
+        id: 'vvip-2027',
+        title: '31st December 2027 · VVIP',
+        price: 12000,
+        soldOut: false,
+        subLabel: '',
+        extra: ''
+      },
+      {
+        id: 'vvip-2027-2',
+        title: '1st January 2027 · VVIP',
+        price: 12000,
+        soldOut: false,
+        subLabel: '',
+        extra: ''
+      },
+      {
+        id: 'table-2026',
+        title: 'VVIP TABLE OF 4 · 31st December 2026',
+        price: 45000,
+        soldOut: false,
+        subLabel: '',
+        extra: ''
+      },
+      {
+        id: 'table-2027',
+        title: 'VVIP TABLE OF 4 · 1st January 2027',
+        price: 45000,
+        soldOut: false,
+        subLabel: '',
+        extra: ''
+      }
     ];
 
     const state = {
@@ -554,58 +564,19 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Generate a unique-ish ticket barcode string
-    function makeBarcodeValue(ticket, index) {
-      const rand = Math.floor(100000 + Math.random() * 900000);
-      return `${ticket.code}-${rand}-${index}`;
-    }
-
-    // Render a barcode into a given SVG element
-    function renderBarcode(svgEl, value) {
-      try {
-        JsBarcode(svgEl, value, {
-          format: 'CODE128',
-          width: 1.6,
-          height: 46,
-          displayValue: false,
-          margin: 0,
-          lineColor: '#000',
-          background: '#ffffff'
-        });
-      } catch (e) {
-        console.warn('Barcode error', e);
-      }
-    }
-
     // ============================================================
-    // RENDER TICKETS
+    // RENDER TICKETS (matching PDF exactly)
     // ============================================================
     function renderTickets() {
       const list = document.getElementById('ticketList');
       list.innerHTML = '';
 
-      TICKET_TYPES.forEach((ticket, idx) => {
+      TICKET_TYPES.forEach(ticket => {
         const qty = state.quantities[ticket.id] || 0;
         const row = document.createElement('div');
         row.className = 'ticket-row' + (qty > 0 ? ' selected' : '');
 
-        // ---- main wrapper (barcode + info) ----
-        const main = document.createElement('div');
-        main.className = 'ticket-main';
-
-        // barcode box
-        const barcodeBox = document.createElement('div');
-        barcodeBox.className = 'barcode-box' + (ticket.soldOut ? ' soldout' : '');
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('class', 'barcode-svg');
-        barcodeBox.appendChild(svg);
-        const codeLabel = document.createElement('div');
-        codeLabel.className = 'barcode-label';
-        codeLabel.textContent = ticket.code;
-        barcodeBox.appendChild(codeLabel);
-        main.appendChild(barcodeBox);
-
-        // info
+        // Info
         const info = document.createElement('div');
         info.className = 'ticket-info';
 
@@ -616,6 +587,7 @@
 
         const sub = document.createElement('div');
         sub.className = 'ticket-sub';
+
         if (ticket.soldOut) {
           const badge = document.createElement('span');
           badge.className = 'sold-out';
@@ -639,10 +611,9 @@
         sub.appendChild(priceTag);
 
         info.appendChild(sub);
-        main.appendChild(info);
-        row.appendChild(main);
+        row.appendChild(info);
 
-        // ---- qty controls ----
+        // Qty controls
         const qtyControl = document.createElement('div');
         qtyControl.className = 'qty-control';
 
@@ -652,195 +623,4 @@
         minusBtn.disabled = ticket.soldOut || qty === 0;
         minusBtn.onclick = () => changeQty(ticket.id, -1);
 
-        const qtyNum = document.createElement('span');
-        qtyNum.className = 'qty-number';
-        qtyNum.textContent = qty;
-
-        const plusBtn = document.createElement('button');
-        plusBtn.className = 'qty-btn' + (!ticket.soldOut ? ' plus-red' : '');
-        plusBtn.innerHTML = '<i class="fas fa-plus"></i>';
-        plusBtn.disabled = ticket.soldOut;
-        plusBtn.onclick = () => changeQty(ticket.id, 1);
-
-        qtyControl.appendChild(minusBtn);
-        qtyControl.appendChild(qtyNum);
-        qtyControl.appendChild(plusBtn);
-        row.appendChild(qtyControl);
-
-        list.appendChild(row);
-
-        // ---- render real barcode ----
-        // For available tickets, generate a new barcode value; sold-out ones still show a barcode (greyed)
-        const barcodeValue = makeBarcodeValue(ticket, idx);
-        setTimeout(() => renderBarcode(svg, barcodeValue), 0);
-      });
-
-      updateProceedButton();
-    }
-
-    // ============================================================
-    // QUANTITY CHANGE
-    // ============================================================
-    function changeQty(ticketId, delta) {
-      const ticket = TICKET_TYPES.find(t => t.id === ticketId);
-      if (!ticket || ticket.soldOut) return;
-
-      const current = state.quantities[ticketId] || 0;
-      const next = current + delta;
-      if (next < 0) return;
-      if (next > 10) return; // reasonable max
-      state.quantities[ticketId] = next;
-      renderTickets();
-    }
-
-    function updateProceedButton() {
-      const total = getSelectedItems().reduce((s, i) => s + i.qty, 0);
-      const btn = document.getElementById('proceedBtn');
-      btn.disabled = total === 0;
-      btn.textContent = total === 0
-        ? 'BOOK TICKETS'
-        : `BOOK ${total} TICKET${total > 1 ? 'S' : ''} · ${formatKES(getGrandTotal())}`;
-    }
-
-    // ============================================================
-    // SUMMARY BUILDER
-    // ============================================================
-    function buildSummaryHTML() {
-      const items = getSelectedItems();
-      if (items.length === 0) {
-        return '<div class="summary-empty">No tickets selected.</div>';
-      }
-      let html = '<h3>Order Summary</h3>';
-      items.forEach(item => {
-        html += `<div class="summary-line">
-          <span>${item.title}</span>
-          <span class="qty">x${item.qty} &nbsp; ${formatKES(item.lineTotal)}</span>
-        </div>`;
-      });
-      html += `<div class="summary-total"><span>Total</span><span>${formatKES(getGrandTotal())}</span></div>`;
-      return html;
-    }
-
-    // ============================================================
-    // PROCEED → DETAILS
-    // ============================================================
-    document.getElementById('proceedBtn').addEventListener('click', () => {
-      if (getSelectedItems().length === 0) return;
-      document.getElementById('detailsSummary').innerHTML = buildSummaryHTML();
-      goToPage('details');
-    });
-
-    // ============================================================
-    // DETAILS FORM VALIDATION → CHECKOUT
-    // ============================================================
-    document.getElementById('detailsForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const name = document.getElementById('fullName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-
-      let valid = true;
-      document.getElementById('err-name').classList.remove('show');
-      document.getElementById('err-email').classList.remove('show');
-      document.getElementById('err-phone').classList.remove('show');
-
-      if (name.length < 2) {
-        document.getElementById('err-name').classList.add('show');
-        valid = false;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        document.getElementById('err-email').classList.add('show');
-        valid = false;
-      }
-      if (phone.replace(/\D/g, '').length < 9) {
-        document.getElementById('err-phone').classList.add('show');
-        valid = false;
-      }
-      if (!valid) return;
-
-      state.customer = { name, email, phone };
-      document.getElementById('checkoutSummary').innerHTML = buildSummaryHTML();
-      goToPage('checkout');
-    });
-
-    // ============================================================
-    // PAYMENT SELECTION
-    // ============================================================
-    function selectPayment(el) {
-      document.querySelectorAll('.payment-option').forEach(p => p.classList.remove('selected'));
-      el.classList.add('selected');
-      state.paymentMethod = el.dataset.method;
-    }
-
-    // ============================================================
-    // COMPLETE PURCHASE → SUCCESS PAGE
-    // ============================================================
-    function completePurchase() {
-      const btn = document.getElementById('payBtn');
-      btn.disabled = true;
-      btn.textContent = 'PROCESSING…';
-
-      setTimeout(() => {
-        // Build success tickets with real barcodes
-        const container = document.getElementById('successTickets');
-        container.innerHTML = '';
-        const items = getSelectedItems();
-        items.forEach((item, itemIdx) => {
-          for (let i = 0; i < item.qty; i++) {
-            const ticketValue = makeBarcodeValue(item, itemIdx + '-' + i);
-            const card = document.createElement('div');
-            card.className = 'success-ticket';
-            card.innerHTML = `
-              <div class="st-title">${item.title}</div>
-              <div class="st-code">${ticketValue}</div>
-              <svg class="success-barcode"></svg>
-            `;
-            container.appendChild(card);
-            const svg = card.querySelector('.success-barcode');
-            try {
-              JsBarcode(svg, ticketValue, {
-                format: 'CODE128',
-                width: 1.8,
-                height: 50,
-                displayValue: true,
-                fontSize: 10,
-                margin: 0
-              });
-            } catch (e) { /* ignore */ }
-          }
-        });
-
-        goToPage('success');
-        btn.disabled = false;
-        btn.textContent = 'PAY NOW';
-      }, 900);
-    }
-
-    // ============================================================
-    // RESET FLOW
-    // ============================================================
-    function resetFlow() {
-      TICKET_TYPES.forEach(t => { state.quantities[t.id] = 0; });
-      state.customer = { name: '', email: '', phone: '' };
-      state.paymentMethod = 'M-Pesa';
-      document.getElementById('fullName').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('phone').value = '';
-      document.getElementById('detailsForm').reset();
-      document.querySelectorAll('.payment-option').forEach((p, i) => {
-        p.classList.toggle('selected', i === 0);
-      });
-      renderTickets();
-      goToPage('tickets');
-    }
-
-    // ============================================================
-    // INIT
-    // ============================================================
-    document.addEventListener('DOMContentLoaded', () => {
-      renderTickets();
-    });
-  </script>
-</body>
-</html>
+        const
