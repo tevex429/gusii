@@ -1,1 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gusii Fest Crossover & New Year · Tickets</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
 
+    body {
+      background-color: #0b0f0c;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .ticket-app {
+      max-width: 620px;
+      width: 100%;
+      background: #1e2a1e;
+      border-radius: 28px;
+      padding: 28px 28px 32px;
+      box-shadow: 0 25px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px #3e5a3e inset;
+      color: #f0f7e6;
+    }
+
+    /* ---------- top bar ---------- */
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #3b4f3b;
+      padding-bottom: 16px;
+    }
+
+    .logo-area { display: flex; align-items: center; gap: 12px; }
+
+    .logo-icon { display: flex; align-items: flex-end; gap: 4px; }
+
+    .feather { width: 10px; border-radius: 4px 4px 0 0; transform: skewX(-5deg); }
+    .feather.green { background: #2e7d32; height: 28px; }
+    .feather.blue { background: #1565c0; height: 34px; }
+    .feather.red { background: #c62828; height: 40px; }
+
+    .disc {
+      width: 38px; height: 38px; background: #f1c40f; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-left: 4px; position: relative;
+    }
+    .disc::after {
+      content: ""; width: 16px; height: 16px; background: #1e2a1e;
+      border-radius: 50%; position: absolute;
+    }
+
+    .nav-links {
+      display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 0.68rem;
+      font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase;
+      color: #d4e6c3; justify-content: flex-end;
+    }
+    .nav-links span { cursor: default; }
+
+    /* ---------- hero ---------- */
+    .event-hero {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+      gap: 12px; margin: 16px 0 18px;
+      background: radial-gradient(circle at 20% 30%, #1f3b1f, #0e1a0e);
+      border-radius: 24px; padding: 20px 10px; position: relative;
+      border: 1px solid #b8952c; box-shadow: 0 8px 0 #0b130b;
+    }
+    .date-card {
+      background: #1e2a1e; border: 2px solid #d4af37; border-radius: 18px;
+      padding: 12px 14px; text-align: center; min-width: 130px;
+      box-shadow: 0 0 0 1px #5f4e1a inset;
+    }
+    .date-card .banner {
+      background: #d4af37; color: #0e1a0e; font-weight: 800; font-size: 1rem;
+      padding: 4px 8px; border-radius: 40px; letter-spacing: 0.5px;
+      margin-bottom: 6px; text-transform: uppercase; display: inline-block;
+    }
+    .date-card .day { font-size: 1.7rem; font-weight: 900; color: #f5f1d6; line-height: 1; letter-spacing: 2px; margin: 4px 0 2px; }
+    .date-card .year { font-size: 0.9rem; font-weight: 700; color: #d4af37; }
+    .date-card .fest-name { font-size: 0.7rem; font-weight: 600; color: #b6d7a8; text-transform: uppercase; margin: 4px 0; }
+    .date-card .big-label { font-size: 0.9rem; font-weight: 800; color: #fff8e0; letter-spacing: 1px; text-transform: uppercase; background: #2b4b2b; padding: 3px 0; border-radius: 20px; margin: 4px 0; }
+    .date-card .time { font-size: 0.6rem; color: #b6d7a8; margin-top: 6px; letter-spacing: 0.4px; }
+
+    .ampersand { font-size: 3rem; font-weight: 900; color: #d4af37; text-shadow: 0 0 10px #b8952c; font-family: 'Georgia', serif; line-height: 1; margin: 0 4px; }
+
+    /* ---------- location + small QR ---------- */
+    .location-qr {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #1b2a1b; border-radius: 18px; padding: 12px 16px;
+      margin: 12px 0 16px; border: 1px solid #3e5a3e;
+    }
+    .location { display: flex; flex-direction: column; gap: 6px; }
+    .location .pin { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #fff; font-size: 1rem; }
+    .location .pin i { color: #e74c3c; font-size: 1.2rem; }
+    .location .phone { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; color: #b6d7a8; }
+    .location .phone i { color: #25d366; font-size: 1.1rem; }
+    .location .phone span { color: #fff; font-weight: 600; letter-spacing: 0.5px; }
+    .qr-area { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 0.55rem; color: #b6d7a8; text-transform: uppercase; letter-spacing: 0.5px; }
+    .qr-box { background: #fff; padding: 5px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+    .qr-box svg { width: 58px; height: 58px; display: block; }
+
+    /* ---------- ticket rows ---------- */
+    .ticket-list { display: flex; flex-direction: column; gap: 12px; margin: 20px 0 12px; }
+
+    .ticket-row {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #1b2a1b; border-radius: 60px; padding: 10px 16px 10px 20px;
+      border: 1px solid #3e5a3e; transition: 0.1s; flex-wrap: wrap; gap: 10px;
+    }
+    .ticket-row.selected {
+      border-color: #f1c40f;
+      box-shadow: 0 0 0 2px rgba(241, 196, 15, 0.35);
+    }
+
+    .ticket-info { display: flex; flex-direction: column; flex: 1; min-width: 180px; }
+    .ticket-title { font-weight: 700; font-size: 0.95rem; color: #f0f7e6; line-height: 1.3; }
+    .ticket-sub { font-size: 0.7rem; color: #b0c9a0; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; align-items: center; }
+    .ticket-sub .sold-out { background: #9e2b2b; color: #ffe0e0; padding: 0 8px; border-radius: 20px; font-weight: 700; font-size: 0.6rem; letter-spacing: 0.3px; text-transform: uppercase; }
+    .ticket-sub .expired { color: #d4af37; font-style: italic; font-weight: 500; }
+    .ticket-sub .price-tag { color: #f1c40f; font-weight: 800; font-size: 0.85rem; }
+
+    .qty-control { display: flex; align-items: center; gap: 8px; background: #2b3b2b; padding: 4px 8px; border-radius: 40px; }
+
+    .qty-btn {
+      background: #5f5f5f; border: none; width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 900; font-size: 1.1rem; cursor: pointer;
+      transition: 0.1s; user-select: none;
+    }
+    .qty-btn:active { transform: scale(0.92); }
+    .qty-btn.plus-red { background: #c0392b; }
+    .qty-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .qty-btn:disabled:active { transform: none; }
+    .qty-number { font-weight: 700; color: #fff; min-width: 18px; text-align: center; font-size: 0.95rem; }
+
+    /* ---------- book button ---------- */
+    .book-section { margin-top: 24px; }
+
+    .book-btn {
+      width: 100%; background: #f1c40f; border: none; border-radius: 60px;
+      padding: 16px; font-weight: 900; font-size: 1.2rem; letter-spacing: 1px;
+      color: #0b130b; text-transform: uppercase; cursor: pointer;
+      box-shadow: 0 10px 0 #a07e0e; transition: 0.1s; border: 1px solid #f9e79f;
+    }
+    .book-btn:active { transform: translateY(4px); box-shadow: 0 6px 0 #a07e0e; }
+    .book-btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: 0 6px 0 #6b550a; transform: translateY(4px); }
+
+    .terms { font-size: 0.65rem; color: #b0c9a0; text-align: center; margin-top: 14px; line-height: 1.5; }
+    .terms a { color: #d4af37; text-decoration: none; }
+
+    /* ---------- footer ---------- */
+    .copyright {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 24px; font-size: 0.6rem; color: #708070;
+      border-top: 1px solid #2b3b2b; padding-top: 16px; flex-wrap: wrap; gap: 8px;
+    }
+    .webhooks { display: flex; align-items: center; gap: 6px; }
+    .mini-logo { display: flex; align-items: center; gap: 6px; opacity: 0.8; }
+    .mini-logo .feather { width: 6px; }
+    .mini-logo .feather.green { height: 18px; }
+    .mini-logo .feather.blue { height: 22px; }
+    .mini-logo .feather.red { height: 26px; }
+    .mini-logo .disc { width: 26px; height: 26px; }
+    .mini-logo .disc::after { width: 10px; height: 10px; }
+
+    /* ---------- PAGES ---------- */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ---------- details form ---------- */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #d4af37; font-size: 0.85rem; font-weight: 600;
+      margin-bottom: 18px; cursor: pointer; text-decoration: none;
+    }
+    .back-link:hover { color: #f1c40f; }
+
+    .step-title {
+      font-size: 1.4rem; font-weight: 900; color: #f5f1d6;
+      margin-bottom: 4px; letter-spacing: 0.5px;
+    }
+    .step-sub {
+      font-size: 0.8rem; color: #b0c9a0; margin-bottom: 20px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: #b6d7a8; margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%; padding: 14px 16px; border-radius: 14px;
+      border: 1px solid #3e5a3e; background: #142014; color: #fff;
+      font-size: 0.95rem; outline: none; transition: 0.15s;
+    }
+    .form-group input::placeholder { color: #5f7a5f; }
+    .form-group input:focus { border-color: #f1c40f; box-shadow: 0 0 0 2px rgba(241, 196, 15, 0.2); }
+    .form-row { display: flex; gap: 12px; }
+    .form-row .form-group { flex: 1; }
+
+    .error-msg {
+      color: #ff6b6b; font-size: 0.75rem; margin-top: 6px; display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* ---------- order summary ---------- */
+    .summary-card {
+      background: #142014; border: 1px solid #3e5a3e; border-radius: 18px;
+      padding: 18px; margin: 20px 0;
+    }
+    .summary-card h3 {
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+      color: #d4af37; margin-bottom: 12px;
+    }
+    .summary-line {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; font-size: 0.88rem; color: #e6f0da;
+      border-bottom: 1px dashed #2b3b2b;
+      gap: 10px;
+    }
+    .summary-line:last-child { border-bottom: none; }
+    .summary-line .qty { color: #b6d7a8; font-size: 0.8rem; white-space: nowrap; }
+    .summary-total {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 12px; padding-top: 12px; border-top: 2px solid #3e5a3e;
+      font-weight: 900; font-size: 1.1rem; color: #f1c40f;
+    }
+    .summary-empty { color: #b0c9a0; font-size: 0.85rem; font-style: italic; }
+
+    /* ---------- checkout ---------- */
+    .payment-option {
+      display: flex; align-items: center; gap: 12px;
+      background: #142014; border: 2px solid #3e5a3e;
+      border-radius: 16px; padding: 14px 16px; margin-bottom: 10px;
+      cursor: pointer; transition: 0.15s;
+    }
+    .payment-option:hover { border-color: #5f7a5f; }
+    .payment-option.selected { border-color: #f1c40f; background: #1b2a1b; }
+    .payment-option .radio-dot {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid #5f7a5f; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .payment-option.selected .radio-dot { border-color: #f1c40f; }
+    .payment-option.selected .radio-dot::after {
+      content: ""; width: 10px; height: 10px; border-radius: 50%; background: #f1c40f;
+    }
+    .payment-option .pay-icon { font-size: 1.3rem; color: #d4af37; width: 28px; text-align: center; }
+    .payment-option .pay-label { font-weight: 700; font-size: 0.9rem; color: #f0f7e6; }
+
+    /* ---------- success ---------- */
+    .success-screen { text-align: center; padding: 30px 10px; }
+    .success-screen .check-circle {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: #1f4b1f; border: 3px solid #2ecc71;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 2.6rem; color: #2ecc71;
+    }
+    .success-screen h2 { color: #f5f1d6; font-size: 1.5rem; margin-bottom: 8px; }
+    .success-screen p { color: #b0c9a0; font-size: 0.9rem; margin-bottom: 24px; }
+
+    /* responsive */
+    @media (max-width: 500px) {
+      .ticket-app { padding: 18px; }
+      .event-hero { gap: 6px; }
+      .date-card { min-width: 110px; padding: 8px; }
+      .date-card .day { font-size: 1.4rem; }
+      .ampersand { font-size: 2rem; }
+      .location-qr { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .nav-links { font-size: 0.55rem; gap: 6px 10px; }
+      .form-row { flex-direction: column; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ticket-app">
+
+    <!-- ================= PAGE 1 : TICKET SELECTION ================= -->
+    <div id="page-tickets" class="page active">
+
+      <div class="top-bar">
+        <div class="logo-area">
+          <div class="logo-icon">
+            <div class="feather green"></div>
+            <div class="feather blue"></div>
+            <div class="feather red"></div>
+            <div class="disc"></div>
+          </div>
+        </div>
+        <div class="nav-links">
+          <span>ABOUT US</span><span>MOVIES</span><span>MY TICKETS</span>
+          <span>CONTACT US</span><span>SIGN IN</span><span>SPORTS</span>
+          <span>KIDS ENTERTAINMENT</span><span>COMEDY</span>
+          <span>ARTS AND GALLERY</span><span>CONCERTS</span>
+          <span>OUTDOOR</span><span>RELIGIOUS ACT</span>
+        </div>
+      </div>
+
+      <div class="event-hero">
+        <div class="date-card">
+          <div class="banner">31<sup>ST</sup></div>
+          <div class="day">DECEMBER</div>
+          <div class="year">2026</div>
+          <div class="fest-name">GUSII FEST</div>
+          <div class="big-label">CROSSOVER</div>
+          <div class="time"><i class="far fa-clock"></i> 4:00PM - 4:00AM</div>
+        </div>
+        <div class="ampersand">&</div>
+        <div class="date-card">
+          <div class="banner">1<sup>ST</sup></div>
+          <div class="day">JANUARY</div>
+          <div class="year">2027</div>
+          <div class="fest-name">GUSII FEST</div>
+          <div class="big-label">NEW YEAR</div>
+          <div class="time"><i class="far fa-clock"></i> 4:00PM - 4:00AM</div>
+        </div>
+      </div>
+
+      <!-- Location + small QR (only QR on the page) -->
+      <div class="location-qr">
+        <div class="location">
+          <div class="pin"><i class="fas fa-map-marker-alt"></i> KISII TOWN</div>
+          <div class="phone">
+            <i class="fab fa-whatsapp"></i>
+            <span>+254 740 852 638</span>
+          </div>
+        </div>
+        <div class="qr-area">
+          <div class="qr-box">
+            <svg viewBox="0 0 70 70" shape-rendering="crispEdges">
+              <rect width="70" height="70" fill="#fff" />
+              <rect x="4" y="4" width="14" height="14" fill="#111" /><rect x="8" y="8" width="6" height="6" fill="#fff" />
+              <rect x="52" y="4" width="14" height="14" fill="#111" /><rect x="56" y="8" width="6" height="6" fill="#fff" />
+              <rect x="4" y="52" width="14" height="14" fill="#111" /><rect x="8" y="56" width="6" height="6" fill="#fff" />
+              <rect x="24" y="4" width="4" height="4" fill="#111" /><rect x="32" y="8" width="6" height="6" fill="#111" />
+              <rect x="42" y="4" width="4" height="4" fill="#111" /><rect x="4" y="24" width="4" height="4" fill="#111" />
+              <rect x="12" y="28" width="6" height="6" fill="#111" /><rect x="4" y="36" width="4" height="8" fill="#111" />
+              <rect x="24" y="24" width="8" height="8" fill="#111" /><rect x="36" y="24" width="6" height="6" fill="#111" />
+              <rect x="48" y="28" width="8" height="4" fill="#111" /><rect x="56" y="36" width="6" height="6" fill="#111" />
+              <rect x="24" y="40" width="8" height="6" fill="#111" /><rect x="40" y="44" width="8" height="8" fill="#111" />
+              <rect x="52" y="52" width="12" height="8" fill="#111" /><rect x="28" y="56" width="6" height="6" fill="#111" />
+            </svg>
+          </div>
+          <span>SCAN TO GET TICKET</span>
+        </div>
+      </div>
+
+      <!-- TICKET LIST — matches PDF exactly -->
+      <div class="ticket-list" id="ticketList"></div>
+
+      <div class="book-section">
+        <button class="book-btn" id="proceedBtn" disabled>BOOK TICKETS</button>
+        <div class="terms">
+          By continuing, you agree to our <a href="#">terms and conditions</a><br>
+          * Tickets once purchased cannot be refunded.
+        </div>
+      </div>
+
+      <div class="copyright">
+        <div class="webhooks"><i class="fas fa-code"></i> Webhooks</div>
+        <div>© Copyright 2026</div>
+        <div class="mini-logo">
+          <div class="feather green"></div><div class="feather blue"></div>
+          <div class="feather red"></div><div class="disc"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PAGE 2 : PERSONAL DETAILS ================= -->
+    <div id="page-details" class="page">
+      <a class="back-link" onclick="goToPage('tickets')">
+        <i class="fas fa-arrow-left"></i> Back to tickets
+      </a>
+
+      <h1 class="step-title">Your Details</h1>
+      <p class="step-sub">Tell us who the tickets are for. All fields are required.</p>
+
+      <form id="detailsForm" novalidate>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. John Doe" autocomplete="name" />
+          <div class="error-msg" id="err-name">Please enter your full name.</div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+          <div class="error-msg" id="err-email">Please enter a valid email address.</div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="+254 740 852 638" autocomplete="tel" />
+          <div class="error-msg" id="err-phone">Please enter a valid phone number.</div>
+        </div>
+
+        <div class="summary-card" id="detailsSummary"></div>
+
+        <button type="submit" class="book-btn">CONTINUE TO CHECKOUT</button>
+      </form>
+    </div>
+
+    <!-- ================= PAGE 3 : CHECKOUT ================= -->
+    <div id="page-checkout" class="page">
+      <a class="back-link" onclick="goToPage('details')">
+        <i class="fas fa-arrow-left"></i> Back to details
+      </a>
+
+      <h1 class="step-title">Checkout</h1>
+      <p class="step-sub">Review your order and choose a payment method.</p>
+
+      <div class="summary-card" id="checkoutSummary"></div>
+
+      <h3 style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#d4af37; margin-bottom:12px;">Payment Method</h3>
+
+      <div class="payment-option selected" data-method="M-Pesa" onclick="selectPayment(this)">
+        <div class="radio-dot"></div>
+        <div class="pay-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div class="pay-label">M-Pesa (Paybill 7408526)</div>
+      </div>
+      <div class="payment-option" data-method="Card" onclick="selectPayment(this)">
+        <div class="radio-dot"></div>
+        <div class="pay-icon"><i class="fas fa-credit-card"></i></div>
+        <div class="pay-label">Credit / Debit Card</div>
+      </div>
+      <div class="payment-option" data-method="Cash" onclick="selectPayment(this)">
+        <div class="radio-dot"></div>
+        <div class="pay-icon"><i class="fas fa-money-bill-wave"></i></div>
+        <div class="pay-label">Pay at the Gate (Cash)</div>
+      </div>
+
+      <button class="book-btn" style="margin-top:22px;" id="payBtn" onclick="completePurchase()">
+        PAY NOW
+      </button>
+
+      <div class="terms" style="margin-top:16px;">
+        * Tickets once purchased cannot be refunded.
+      </div>
+    </div>
+
+    <!-- ================= PAGE 4 : SUCCESS ================= -->
+    <div id="page-success" class="page">
+      <div class="success-screen">
+        <div class="check-circle"><i class="fas fa-check"></i></div>
+        <h2>Payment Successful!</h2>
+        <p>Your tickets have been confirmed and sent to your email.</p>
+        <div class="summary-card" id="successSummary" style="text-align:left;"></div>
+        <button class="book-btn" onclick="resetFlow()">BOOK MORE TICKETS</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ============================================================
+    // TICKET DATA — mirrors the PDF exactly
+    // ============================================================
+    const TICKET_TYPES = [
+      {
+        id: 'early-bird-2026',
+        title: '31st December 2026 · Early Bird',
+        price: 500,
+        soldOut: true,
+        subLabel: 'SOLD OUT',
+        extra: 'Available from 27 Aug 2026 until 30 Nov 2026'
+      },
+      {
+        id: 'early-bird-2027',
+        title: '1st January 2027 · Early Bird',
+        price: 600,
+        soldOut: true,
+        subLabel: 'SOLD OUT',
+        extra: 'Available from 05 Aug 2026 until 30 Nov 2026'
+      },
+      {
+        id: 'vip-2026',
+        title: '31st December 2026 · VIP',
+        price: 5000,
+        soldOut: true,
+        subLabel: 'SOLD OUT',
+        extra: 'Ticket Period Expired · Available 01 Oct 2026 until 01 Nov 2026'
+      },
+      {
+        id: 'vip-2027',
+        title: '1st January 2027 · VIP',
+        price: 5000,
+        soldOut: true,
+        subLabel: 'SOLD OUT',
+        extra: ''
+      },
+      {
+        id: 'vvip-2027-a',
+        title: '31st December 2027 · VVIP',
+        price: 12000,
+        soldOut: false,
+        subLabel: '',
+        extra: ''
+      },
+      {
+        id: 'vvip-2027-b',
+        title: '1st January 2027 · VVIP',
+        price: 12000,
+        soldOut: false,
+        subLabel: '',
+        extra: ''
+      },
+      {
+        id: 'table-2026',
+        title: 'VVIP TABLE OF 4 · 31st December 2026',
+        price: 45000,
+        soldOut: false,
+        subLabel: '',
+        extra: ''
+      },
+      {
+        id: 'table-2027',
+        title: 'VVIP TABLE OF 4 · 1st January 2027',
+        price: 45000,
+        soldOut: false,
+        subLabel: '',
+        extra: ''
+      }
+    ];
+
+    const state = {
+      quantities: {},
+      customer: { name: '', email: '', phone: '' },
+      paymentMethod: 'M-Pesa'
+    };
+
+    TICKET_TYPES.forEach(t => { state.quantities[t.id] = 0; });
+
+    // ============================================================
+    // HELPERS
+    // ============================================================
+    function formatKES(amount) {
+      return 'KES ' + amount.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function getSelectedItems() {
+      return TICKET_TYPES
+        .filter(t => state.quantities[t.id] > 0)
+        .map(t => ({ ...t, qty: state.quantities[t.id], lineTotal: t.price * state.quantities[t.id] }));
+    }
+
+    function getGrandTotal() {
+      return getSelectedItems().reduce((sum, item) => sum + item.lineTotal, 0);
+    }
+
+    function goToPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + pageId).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ============================================================
+    // RENDER TICKETS
+    // ============================================================
+    function renderTickets() {
+      const list = document.getElementById('ticketList');
+      list.innerHTML = '';
+
+      TICKET_TYPES.forEach(ticket => {
+        const qty = state.quantities[ticket.id] || 0;
+        const row = document.createElement('div');
+        row.className = 'ticket-row' + (qty > 0 ? ' selected' : '');
+
+        // Info
+        const info = document.createElement('div');
+        info.className = 'ticket-info';
+
+        const title = document.createElement('div');
+        title.className = 'ticket-title';
+        title.textContent = ticket.title;
+        info.appendChild(title);
+
+        const sub = document.createElement('div');
+        sub.className = 'ticket-sub';
+
+        if (ticket.soldOut) {
+          const badge = document.createElement('span');
+          badge.className = 'sold-out';
+          badge.textContent = ticket.subLabel || 'SOLD OUT';
+          sub.appendChild(badge);
+        } else {
+          const avail = document.createElement('span');
+          avail.style.color = '#b6d7a8';
+          avail.textContent = 'Available';
+          sub.appendChild(avail);
+        }
+        if (ticket.extra) {
+          const extra = document.createElement('span');
+          extra.className = ticket.extra.toLowerCase().includes('expired') ? 'expired' : '';
+          extra.textContent = ticket.extra;
+          sub.appendChild(extra);
+        }
+        const priceTag = document.createElement('span');
+        priceTag.className = 'price-tag';
+        priceTag.textContent = formatKES(ticket.price);
+        sub.appendChild(priceTag);
+
+        info.appendChild(sub);
+        row.appendChild(info);
+
+        // Qty controls
+        const qtyControl = document.createElement('div');
+        qtyControl.className = 'qty-control';
+
+        const minusBtn = document.createElement('button');
+        minusBtn.className = 'qty-btn';
+        minusBtn.innerHTML = '<i class="fas fa-minus"></i>';
+        minusBtn.disabled = ticket.soldOut || qty === 0;
+        minusBtn.onclick = () => changeQty(ticket.id, -
