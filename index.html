@@ -500,7 +500,7 @@
         extra: ''
       },
       {
-        id: 'vvip-2027',
+        id: 'vvip-2027-a',
         title: '31st December 2027 · VVIP',
         price: 12000,
         soldOut: false,
@@ -508,7 +508,7 @@
         extra: ''
       },
       {
-        id: 'vvip-2027-2',
+        id: 'vvip-2027-b',
         title: '1st January 2027 · VVIP',
         price: 12000,
         soldOut: false,
@@ -565,7 +565,7 @@
     }
 
     // ============================================================
-    // RENDER TICKETS (matching PDF exactly)
+    // RENDER TICKETS
     // ============================================================
     function renderTickets() {
       const list = document.getElementById('ticketList');
@@ -621,6 +621,4 @@
         minusBtn.className = 'qty-btn';
         minusBtn.innerHTML = '<i class="fas fa-minus"></i>';
         minusBtn.disabled = ticket.soldOut || qty === 0;
-        minusBtn.onclick = () => changeQty(ticket.id, -1);
-
-        const
+        minusBtn.onclick = () => changeQty(ticket.id, -
